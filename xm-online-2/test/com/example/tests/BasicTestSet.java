@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.Select;
 
 import net.sourceforge.htmlunit.corejs.javascript.ast.ThrowStatement;
 
-public class UntitledTestCase {
+public class BasicTestSet {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
