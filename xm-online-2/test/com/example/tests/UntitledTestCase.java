@@ -9,6 +9,8 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
+import net.sourceforge.htmlunit.corejs.javascript.ast.ThrowStatement;
+
 public class UntitledTestCase {
   private WebDriver driver;
   private String baseUrl;
@@ -17,25 +19,83 @@ public class UntitledTestCase {
 
   @Before
   public void setUp() throws Exception {
-	System.setProperty("webdriver.gecko.driver", "resources/geckodriver.exe");
+	System.setProperty("webdriver.gecko.driver", "resource/geckodriver.exe");
     driver = new FirefoxDriver();
-    baseUrl = "http://compass.test.xm-online.com/";
+    baseUrl = "http://compass.test.xm-online.com";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
-
+  
   @Test
-  public void testUntitledTestCase() throws Exception {
-    driver.get(baseUrl);
-    driver.findElement(By.id("username")).click();
-    driver.findElement(By.id("username")).sendKeys("compass");
-    driver.findElement(By.id("password")).sendKeys("P@ssw0rd");
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='Вы забыли ваш пароль?'])[1]/following::button[1]")).click();
-    driver.findElement(By.linkText("John Doe")).click();
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='SO'])[1]/following::span[2]")).click();
-    driver.findElement(By.xpath("(.//*[normalize-space(text()) and normalize-space(.)='×'])[1]/following::button[1]")).click();
+  public void makeLoginLogout() throws Exception {
+	  goToLoginPAge();
+	  enterUsername("compass");
+	  enterPwd("P@ssw0rd");
+	  configrLoginBtn();
+	  openUserBar();
+	  logout();
+	  confirmLogout();
+	  }
+  
+  @Test
+  public void forgetYourPass() throws Exception{
+	  goToLoginPAge();
+	  selectFYP();
+	  enterEmail("test@test.com");
+	  resetPwd();
   }
 
-  @After
+  private void resetPwd() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.cssSelector("button.btn:nth-child(2)")).click();
+}
+
+private void enterEmail(String resetEmail) {
+	// TODO Auto-generated method stub
+	driver.findElement(By.id("email")).sendKeys(resetEmail);
+}
+
+private void selectFYP() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.className("forgot-link")).click();
+}
+
+private void configrLoginBtn() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.cssSelector(".btn-primary")).click();
+}
+
+private void confirmLogout() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.cssSelector(".swal2-confirm")).click();
+}
+
+private void logout() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.id("logout")).click();
+
+}
+
+private void openUserBar() {
+	// TODO Auto-generated method stub
+	driver.findElement(By.xpath("//div[@class='user']")).click();
+}
+
+private void enterPwd(String userNamePwd) {
+	// TODO Auto-generated method stub
+	  driver.findElement(By.id("password")).sendKeys(userNamePwd);
+}
+
+private void enterUsername(String userName) {
+	// TODO Auto-generated method stub
+	  driver.findElement(By.id("username")).sendKeys(userName);
+}
+
+private void goToLoginPAge() {
+	// basic step to go to login page if u'r not loged
+	  driver.get(baseUrl);
+}
+
+@After
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
