@@ -17,7 +17,7 @@ public class BasicTestSet {
   private boolean acceptNextAlert = true;
   private StringBuffer verificationErrors = new StringBuffer();
 
-  @Before
+  @BeforeClass
   public void setUp() throws Exception {
 	System.setProperty("webdriver.gecko.driver", "resource/geckodriver.exe");
     driver = new FirefoxDriver();
@@ -30,7 +30,7 @@ public class BasicTestSet {
 	  goToLoginPAge();
 	  enterUsername("compass");
 	  enterPwd("P@ssw0rd");
-	  configrLoginBtn();
+	 confirmLogin();
 	  openUserBar();
 	  logout();
 	  confirmLogout();
@@ -59,7 +59,7 @@ private void selectFYP() {
 	driver.findElement(By.className("forgot-link")).click();
 }
 
-private void configrLoginBtn() {
+private void confirmLogin() {
 	// TODO Auto-generated method stub
 	driver.findElement(By.cssSelector(".btn-primary")).click();
 }
@@ -95,7 +95,7 @@ private void goToLoginPAge() {
 	  driver.get(baseUrl);
 }
 
-@After
+@AfterClass
   public void tearDown() throws Exception {
     driver.quit();
     String verificationErrorString = verificationErrors.toString();
