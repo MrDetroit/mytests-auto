@@ -1,2 +1,4 @@
 eclipse.preferences.version=1
 encoding//test/com/example/tests/BasicTestSet.java=UTF-8
+encoding//test/com/example/tests/ChangePassword.java=UTF-8
+encoding//test/com/example/tests/LoginLogout.java=UTF-8
