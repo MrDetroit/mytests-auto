@@ -6,6 +6,7 @@ import org.junit.*;
 import static org.junit.Assert.*;
 import static org.hamcrest.CoreMatchers.*;
 import org.openqa.selenium.*;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
@@ -19,8 +20,8 @@ public class BasicTestSet {
 
   @BeforeClass
   public void setUp() throws Exception {
-	System.setProperty("webdriver.gecko.driver", "resource/geckodriver.exe");
-    driver = new FirefoxDriver();
+	System.setProperty("webdriver.chrome.driver", "resource/chromedriver.exe");
+    driver = new ChromeDriver();
     baseUrl = "http://compass.test.xm-online.com";
     driver.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
   }
